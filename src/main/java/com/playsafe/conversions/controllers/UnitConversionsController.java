@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assessment.PlaySafe.FormatInput;
-import com.assessment.PlaySafe.models.Conversions;
 import com.playsafe.conversions.models.UnitConversions;
 import com.playsafe.conversions.services.UnitConversionService;
 import com.playsafe.conversions.validators.InputValidators;
@@ -32,6 +30,41 @@ public class UnitConversionsController {
 		}
 		catch(Exception e) {
 			return new UnitConversions("Invalid Input format","miles",0.00,"kilometres",0);
+		}
+		
+	}
+	
+	@GetMapping("/ctok/input={input}")
+	public UnitConversions celciusToKelvin(@PathVariable String input){
+		try {
+			double celcius = InputValidators.stringToDouble(input);
+			return conversionService.celciusToKelvin(celcius);
+		}
+		catch(Exception e) {
+			return new UnitConversions("Invalid Input format","miles",0.00,"kilometres",0);
+		}
+	}
+	
+	@GetMapping("/mtok/input={input}")
+	public UnitConversions milesToKilometres(@PathVariable String input){
+		try {
+			double miles = InputValidators.stringToDouble(input);
+			return conversionService.milesToKilometres(miles);
+		}
+		catch(Exception e) {
+			return new UnitConversions("Invalid Input format","miles",0.00,"kilometres",0);
+		}
+		
+	}
+	
+	@GetMapping("/ktom/input={input}")
+	public UnitConversions kilometresToMiles(@PathVariable String input){
+		try {
+			double kilometres = InputValidators.stringToDouble(input);
+			return conversionService.kilometresToMiles(kilometres);
+		}
+		catch(Exception e) {
+			return new UnitConversions("Invalid Input format","kilometres",0.00,"miles",0);
 		}
 		
 	}
